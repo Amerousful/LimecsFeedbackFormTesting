@@ -56,11 +56,14 @@ public class Limecs {
     }
 
     public void goToContact() {
-        clickButton(By.id("comp-ifgtula72label"));
+        clickButton(Locators.getContactButtonPath());
+    }
+    public void clickSendButton() {
+        clickButton(Locators.getSendButtonPath());
     }
 
     public boolean confirmMessage() {
-       return elementPresent(By.xpath("//*[text()='Success! Message received.']") );
+       return elementPresent(Locators.getConfirmMessage());
     }
 
 
@@ -101,8 +104,10 @@ public class Limecs {
 
     @Test
     public void checkSendContact() {
-
-
+        fillField(name, Locators.getNamePath());
+        fillField(email, Locators.getEmailPath());
+        fillField(message, Locators.getMessagePath());
+        clickSendButton();
         assertConfirm();
     }
 
