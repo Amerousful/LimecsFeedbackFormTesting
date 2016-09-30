@@ -2,118 +2,27 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
-
-@RunWith(Parameterized.class)
 public class Limecs {
-
-    @Parameterized.Parameters
-    public static Iterable<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {"myname", "test@gmail.com", "message"},
-                {"myname", "test@", "message"}
-        });
-    }
-
-    public void startDriver() {
-        System.setProperty("webdriver.chrome.driver", "D://Selenium//chromedriver.exe");
-    }
-    WebDriver driver = new ChromeDriver();
-    WebDriverWait wait = new WebDriverWait(driver, 10);
-
-    private String name;
-    private String email;
-    private String message;
-
-    public Limecs (String name, String email, String message) {
-        this.name = name;
-        this.email = email;
-        this.message = message;
-    }
-
-
-    public void clickButton(By fieldlocator) {
-        elementWait(fieldlocator);
-        WebElement element = driver.findElement(fieldlocator);
-        element.click();
-    }
-
-    public void fillField(String fielddata, By fieldlocator) {
-        elementWait(fieldlocator);
-        WebElement element = driver.findElement(fieldlocator);
-        element.sendKeys(fielddata);
-    }
-
-    public void goToSite(String url) {
-        driver.get(url);
-    }
-
-    public void goToContact() {
-        clickButton(Locators.getContactButtonPath());
-    }
-    public void clickSendButton() {
-        clickButton(Locators.getSendButtonPath());
-    }
-
-    public boolean confirmMessage() {
-       return elementPresent(Locators.getConfirmMessage());
-    }
-
-
-    protected boolean elementPresent(By locator) {
-        try {
-            driver.findElement(locator);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    protected boolean elementWait(By locator) {
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            return true;
-        } catch (TimeoutException ex) {
-            return false;
-        }
-    }
-
-    public void assertConfirm() {
-        Assert.assertFalse(confirmMessage());
-    }
-
-    public void exitDriver() {
-        driver.quit();
-    }
 
 
     @Before
     public void goToSiteAndContact() {
-        startDriver();
-
-        goToSite("http://www.limecs.co");
-        goToContact();
+        Action.startDriver();
+        Action.goToSite();
+        Action.goToContact();
     }
-
     @Test
     public void checkSendContact() {
-        fillField(name, Locators.getNamePath());
-        fillField(email, Locators.getEmailPath());
-        fillField(message, Locators.getMessagePath());
-        clickSendButton();
-        assertConfirm();
+        Action.fillField(Data.getName(), Locators.getNamePath());
+        Action.fillField(Data.getEmail(), Locators.getEmailPath());
+        Action.fillField(Data.getMessage(), Locators.getMessagePath());
+        Action.clickSendButton();
+        Assert.assertFalse( Action.confirmMessage());
     }
-
     @After
     public void killerDriver() {
-        exitDriver();
+        Action.exitDriver();
     }
 
 }
