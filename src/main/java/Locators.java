@@ -2,13 +2,17 @@ import org.openqa.selenium.By;
 
 public class Locators {
 
-    private static By namepath;
-    private static By emailpath;
-    private static By messagepath;
-    private static By sendbuttonpath;
-    private static By contactbuttonpath;
-    private static By confirmmessage;
+    private static String url = "http://www.limecs.co";
+    private static By namepath = By.name("Name");
+    private static By emailpath = By.name("Email");
+    private static By messagepath = By.name("Message");
+    private static By sendbuttonpath = By.id("comp-ifqyiqxmsubmit");
+    private static By contactbuttonpath = By.id("comp-ifgtula72label");
+    private static By confirmmessage = By.xpath("//[text()='Success! Message received.']");
 
+    static String getUrl() {
+        return url;
+    }
     static By getNamePath() {
         return namepath;
     }
@@ -28,33 +32,7 @@ public class Locators {
         return confirmmessage;
     }
 
-    public void setNamePath(By namepath) {
-        this.namepath = namepath;
-    }
-    public void setEmailPath(By emailpath) {
-        this.emailpath = emailpath;
-    }
-    public void setMessagePath(By messagepath) {
-        this.messagepath = messagepath;
-    }
-    public void setSendButtonPath(By sendbuttonpath) {
-        this.sendbuttonpath = sendbuttonpath;
-    }
-    public void setContactbuttonpath(By contactbuttonpath) {
-        this.contactbuttonpath = contactbuttonpath;
-    }
-    public void setConfirmMessage(By confirmmessage) {
-        this.confirmmessage = confirmmessage;
-    }
 
-    public void initAllPath() {
-        setNamePath(By.id("empty"));
-        setEmailPath(By.id("empty"));
-        setMessagePath(By.id("empty"));
-        setSendButtonPath(By.id("empty"));
-        setContactbuttonpath(By.id("empty"));
-        setConfirmMessage(By.id("empty"));
-    }
 
 }
 
