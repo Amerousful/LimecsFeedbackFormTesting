@@ -1,11 +1,25 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+
+@RunWith(Parameterized.class)
 public class Limecs {
 
+    @Parameterized.Parameters(name = "name: {0}, email: {1}, message: {2}")
+    public static Iterable<Object[]> testData() {
+        return Data.getTestData();
+        }
 
+    private String name;
+    private String email;
+    private String message;
+
+    public Limecs (String name, String email, String message) {
+        this.name = name;
+        this.email = email;
+        this.message = message;
+    }
     @Before
     public void goToSiteAndContact() {
         Action.startDriver();
@@ -14,14 +28,14 @@ public class Limecs {
     }
     @Test
     public void checkSendContact() {
-        Action.fillField(Data.getName(), Locators.getNamePath());
-        Action.fillField(Data.getEmail(), Locators.getEmailPath());
-        Action.fillField(Data.getMessage(), Locators.getMessagePath());
+        Action.fillField(name, Locators.getNamePath());
+        Action.fillField(email, Locators.getEmailPath());
+        Action.fillField(message, Locators.getMessagePath());
         Action.clickSendButton();
         Assert.assertFalse( Action.confirmMessage());
     }
-    @After
-    public void killerDriver() {
+    @AfterClass
+    public static void killerDriver() {
         Action.exitDriver();
     }
 
