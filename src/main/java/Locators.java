@@ -8,7 +8,7 @@ public class Locators {
     private static By messagepath = By.name("Message");
     private static By sendbuttonpath = By.id("comp-ifqyiqxmsubmit");
     private static By contactbuttonpath = By.id("comp-ifgtula72label");
-    private static By confirmmessage = By.xpath("//[text()='Success! Message received.']");
+    private static By confirmmessage = By.xpath("//*[contains(text(), 'Success! Message received.')]");
 
     static String getUrl() {
         return url;
@@ -31,8 +31,6 @@ public class Locators {
     static By getConfirmMessage() {
         return confirmmessage;
     }
-
-
 
 }
 
