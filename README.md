@@ -11,8 +11,13 @@ You must specify the location of where to write logs:
 This can be done in the /src/main/resources/log4j.properties
 
 IDE: Intellij Idea
+
 PL: Java
+
 Test framework: Junit
+
 Webdriver: Selenium WebDriver
+
 Logger: log4j
+
 Assembly: Maven
